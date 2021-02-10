@@ -23,3 +23,11 @@
 hs_err_pid*
 /testapp/build/
 /testapp/.gradle/
+/.idea/.gitignore
+/.idea/gradle.xml
+/.idea/jarRepositories.xml
+/.idea/kotlin_test_repo.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/modules/testapp.iml
+/.idea/vcs.xml
