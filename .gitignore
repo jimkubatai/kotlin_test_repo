@@ -23,6 +23,8 @@
 hs_err_pid*
 /testapp/build/
 /testapp/.gradle/
+/lesson1/build/
+/lesson1/.gradle/
 /.idea/.gitignore
 /.idea/gradle.xml
 /.idea/jarRepositories.xml
