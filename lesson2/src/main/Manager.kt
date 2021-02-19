@@ -1,7 +1,10 @@
 class Manager : IManager {
 
-   private var Nodes : Array<INode>
+   private var Nodes : MutableList<INode>
 
+    init {
+        Nodes = MutableList<INode>
+    }
 
    private override fun IsAnyNodeFree() : Boolean {
        for(node in Nodes) if(node.IsWork() == false) {
@@ -16,6 +19,11 @@ class Manager : IManager {
        return false
    }
    private override fun AddTaskToQueue(task : ITask) : Int {
+       for(node in Nodes) if(node.CheckCurrentStatus() == 0) {
+          node.SetTask(task)
+          return task.Id
+       }
 
+       return -1
    }
 }

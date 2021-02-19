@@ -1,6 +1,7 @@
 interface INode {
-    var Owner: String
-    var Name: String
+    val Owner: String
+    val Name: String
+
     var CurrentTaskId: Int
 
     fun CheckCurrentStatus(): Int
