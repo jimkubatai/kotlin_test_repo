@@ -26,4 +26,8 @@ class Manager : IManager {
 
        return -1
    }
+
+   private override fun AddNode(node : INode) {
+       Nodes.add(node)
+   }
 }
