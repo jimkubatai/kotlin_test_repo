@@ -1,38 +1,25 @@
-open interface IManager {
-    fun isAnyNodeFree() : Boolean
-    fun isMyTaskDone(id : Int) : Boolean
-    fun addTaskToQueue( task : ITask) : Int
+interface IManager {
+    fun doTask(task : ITask)
     fun addNode(node : INode)
+    fun removeNode(name : String, owner : String)
 }
 
 class Manager : IManager {
+    private val nodes = mutableListOf<INode>()
 
-    val nodes = mutableListOf<INode>()
-
-    override fun isAnyNodeFree() : Boolean {
-       for(node in nodes) if(node.checkCurrentStatus() == 0) {
-           return true
-       }
-       return false
-    }
-
-    override fun isMyTaskDone(id : Int) : Boolean {
-       for(node in nodes) if(node.currentTaskId == id) {
-           return node.checkCurrentStatus() == 2
-       }
-       return false
-    }
-
-    override fun addTaskToQueue(task : ITask) : Int {
-       for(node in nodes) if(node.checkCurrentStatus() == 0) {
+    override fun doTask(task : ITask) {
+       for(node in nodes) {
           node.setTask(task)
-          return task.id
        }
-
-       return -1
     }
 
-    override  fun addNode(node : INode) {
+    override fun addNode(node : INode) {
        nodes.add(node)
+    }
+
+    override fun removeNode(name: String, owner: String,) {
+        for(node in nodes) if(name == node.name && owner == node.owner) {
+            nodes.remove(node)
+        }
     }
 }
