@@ -20,3 +20,11 @@ class WindowsNode(override val owner: String, override val name: String) : INode
         task.work()
     }
 }
+
+class MacNode(override val owner: String, override val name: String) : INode {
+
+    override fun setTask(task : ITask) {
+        println("Starting work mac node $name - $owner")
+        task.work()
+    }
+}

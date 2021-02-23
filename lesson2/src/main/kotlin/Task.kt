@@ -1,18 +1,27 @@
 interface ITask {
+    var time : Int
+
     fun work()
 }
 
 
-class SlowTask : ITask {
+class SlowTask(override var time : Int) : ITask {
 
     override fun work() {
-        println("Doing slooooow task")
+        println("Doing slooooow task - time $time")
     }
 }
 
-class FastTask : ITask {
+open class FastTask(override var time : Int)  : ITask {
 
     override fun work() {
-        println("Doing fast task")
+        val factTime = time / 2
+        println("Doing fast task - time $factTime")
+    }
+}
+
+class SoFastTask(time: Int) : FastTask(time) {
+    init {
+        this.time = time / 2
     }
 }

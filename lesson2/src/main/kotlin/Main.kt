@@ -2,13 +2,12 @@ fun main() {
        val myManager : IManager = Manager()
 
        myManager.addNode(UnixNode("Lenovo", "V1"))
-       myManager.addNode(UnixNode("IBM", "5255020"))
-       myManager.addNode(WindowsNode("Lenovo", "V2"))
        myManager.addNode(WindowsNode("Microsoft", "Smart Table"))
+       myManager.addNode(MacNode("Apple", "Smart Table"))
 
-       myManager.doTask(SlowTask())
-       myManager.doTask(FastTask())
+       myManager.doTask(SlowTask(50))
+       myManager.doTask(FastTask(50))
 
        myManager.removeNode("Lenovo", "V1")
-       myManager.doTask(SlowTask())
+       myManager.doTask(SoFastTask(50))
     }
