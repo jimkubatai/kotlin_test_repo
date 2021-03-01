@@ -1,5 +1,5 @@
 fun main() {
-       val myManager : IManager = Manager()
+       val myManager = Manager()
 
        myManager.addNode(UnixNode("Lenovo", "V1"))
        myManager.addNode(WindowsNode("Microsoft", "Smart Table"))

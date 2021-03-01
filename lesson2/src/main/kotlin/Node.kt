@@ -1,30 +1,28 @@
 interface INode {
     val owner: String
     val name: String
+    val type: String
 
-    fun setTask(task : ITask)
+    fun setTask(task : ITask) {
+        println("Starting work $type node $name - $owner")
+        task.work()
+    }
 }
 
 class UnixNode(override val owner: String, override val name: String) : INode {
 
-    override fun setTask(task : ITask) {
-        println("Starting work unix node $name - $owner")
-        task.work()
-    }
+    override val type = "Unix"
+
 }
 
 class WindowsNode(override val owner: String, override val name: String) : INode {
 
-    override fun setTask(task : ITask) {
-        println("Starting work windows node $name - $owner")
-        task.work()
-    }
+    override val type = "Windows"
+
 }
 
 class MacNode(override val owner: String, override val name: String) : INode {
 
-    override fun setTask(task : ITask) {
-        println("Starting work mac node $name - $owner")
-        task.work()
-    }
+    override val type = "Mac"
+
 }
