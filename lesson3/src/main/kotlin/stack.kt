@@ -5,9 +5,13 @@ class Stack<T> {
         objectsList.add(t)
     }
 
-    fun pop(): T? {
+    fun popOrNull(): T? {
         if(objectsList.isEmpty()) return null
 
+        return pop()
+    }
+
+    fun pop(): T {
         val obj = objectsList[objectsList.size - 1]
         objectsList.removeAt(objectsList.size - 1)
 
