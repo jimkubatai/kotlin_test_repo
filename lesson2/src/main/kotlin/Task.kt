@@ -12,20 +12,34 @@ class SlowTask(override var time : Int) : ITask {
 
     override var taskName = "slow"
 
+    private val slower: Int = 2
+
     override fun work() {
-        println("thinking...")
-        println("thinking...")
-        println("thinking...")
+        think()
+        doItSlower()
         super.work()
     }
+
+    private fun think() {
+        println("thinking...")
+        println("thinking...")
+        println("thinking...")
+    }
+
+    private fun doItSlower(){
+        this.time = time * slower
+    }
+
 }
 
 open class FastTask(final override var time : Int)  : ITask {
 
     override var taskName = "fast"
 
+    protected val faster: Int = 2
+
     init {
-        this.time = time / 2
+        this.time = time - faster
     }
 
 }
@@ -35,6 +49,11 @@ class SoFastTask(time: Int) : FastTask(time) {
     override var taskName = "so fast"
 
     init {
-        this.time = time / 2
+        doItFaster()
+        doItFaster()
+    }
+
+    private fun doItFaster(){
+        this.time = time / faster
     }
 }
