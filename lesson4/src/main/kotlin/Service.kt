@@ -20,7 +20,7 @@ class Service(private val cardsData: FuelCardsData, private val carsData: CarsDa
         return getCarToFuelCards().groupBy { it.cardVendor.toLowerCase() }
     }
 
-    fun getCarToFuelCardByFilter(predicate: (CarToFuelCard) -> Boolean) : Int {
+    fun getCarToFuelCardCountByFilter(predicate: (CarToFuelCard) -> Boolean) : Int {
         return getCarToFuelCards().filter(predicate).count()
     }
 }

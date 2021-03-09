@@ -6,5 +6,5 @@ fun main() {
     println(service.getCarToFuelCards())
     println(service.getCarToFuelCardGroupedByVendor())
     println(service.getCarToFuelCardSortedByLicensePlate())
-    println(service.getCarToFuelCardByFilter { it.cardVendor.toLowerCase() == "газпром" })
+    println(service.getCarToFuelCardCountByFilter { it.cardVendor.toLowerCase() == "газпром" })
 }
