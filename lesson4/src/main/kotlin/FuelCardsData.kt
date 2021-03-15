@@ -16,19 +16,14 @@ class FuelCardsData {
         FuelCard(113, "Shell", "SHELL99003"))
 
 
-    fun getAll(): List<FuelCard> {
-        return this.cards
-    }
+    fun getAll(): List<FuelCard> = this.cards
 
-    fun getCardsByCar(car: Car): List<FuelCard> {
-        return cards.filter { car.fuelCardNumbers.contains(it.number) }
-    }
+    fun getCardsByCar(car: Car): List<FuelCard> = cards.filter { car.fuelCardNumbers.contains(it.number) }
 
-    fun getCardByCar(car: Car): FuelCard {
-        return cards.first { car.fuelCardNumbers.contains(it.number) }
-    }
 
-    fun getCardByCarOrNull(car: Car): FuelCard? {
-        return cards.firstOrNull { car.fuelCardNumbers.contains(it.number) }
-    }
+    fun getCardByCar(car: Car): FuelCard = cards.first { car.fuelCardNumbers.contains(it.number) }
+
+
+    fun getCardByCarOrNull(car: Car): FuelCard? = cards.firstOrNull { car.fuelCardNumbers.contains(it.number) }
+
 }

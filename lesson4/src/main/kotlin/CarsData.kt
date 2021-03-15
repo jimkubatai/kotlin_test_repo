@@ -10,11 +10,8 @@ class CarsData {
                   Car(9, "Н241ТВ55", listOf("W100004")),
                   Car(10, "С243СР777", listOf("40150499202", "SHELL99002")))
 
-    fun getAll(): List<Car> {
-        return this.cars
-    }
+    fun getAll(): List<Car> = this.cars
 
-    fun getCarsByFuelCardNumber(fuelCard: FuelCard): List<Car> {
-        return cars.filter { it.fuelCardNumbers.contains(fuelCard.number) }
-    }
+    fun getCarsByFuelCardNumber(fuelCard: FuelCard): List<Car> = cars.filter { it.fuelCardNumbers.contains(fuelCard.number) }
+
 }
