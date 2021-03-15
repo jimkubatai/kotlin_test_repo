@@ -11,4 +11,5 @@ class Service(private val cardsData: FuelCardsData, private val carsData: CarsDa
     fun getCarToFuelCardGroupedByVendor() : Map<String, List<CarToFuelCard>> = getCarToFuelCards().groupBy { it.cardVendor.toLowerCase() }
 
     fun getCarToFuelCardCountByFilter(predicate: (CarToFuelCard) -> Boolean) : Int = getCarToFuelCards().filter(predicate).count()
+
 }
