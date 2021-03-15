@@ -11,4 +11,8 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
+// https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-jdbc
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-jdbc', version: '0.12.213'
+// https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.34.0'
 }

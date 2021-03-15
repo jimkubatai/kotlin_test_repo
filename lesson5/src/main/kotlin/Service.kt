@@ -1,3 +1,8 @@
+import Model.CarToFuelCard
+import Model.CarsData
+import Model.FuelCardsData
+import java.sql.Connection
+
 class Service(private val cardsData: FuelCardsData, private val carsData: CarsData) {
 
     fun getCarToFuelCards(): List<CarToFuelCard> = cardsData.getAll().flatMap { fuelCard ->
@@ -11,5 +16,6 @@ class Service(private val cardsData: FuelCardsData, private val carsData: CarsDa
     fun getCarToFuelCardGroupedByVendor() : Map<String, List<CarToFuelCard>> = getCarToFuelCards().groupBy { it.cardVendor.toLowerCase() }
 
     fun getCarToFuelCardCountByFilter(predicate: (CarToFuelCard) -> Boolean) : Int = getCarToFuelCards().filter(predicate).count()
+
 
 }
