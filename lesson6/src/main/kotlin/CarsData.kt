@@ -13,6 +13,4 @@ class CarsData {
     fun getAll(): List<Car> = this.cars
 
     fun getCarsById(carId: Int): List<Car> = cars.filter { it.id == carId }
-    fun getCarsByFuelCardNumber(fuelCard: FuelCard): List<Car> = cars.filter { it.fuelCardNumbers.contains(fuelCard.number) }
-
 }
