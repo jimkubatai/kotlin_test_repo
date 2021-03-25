@@ -6,7 +6,7 @@ class DbFiller(private val client: Client) {
 
     fun createModelTables() {
         try {
-            client.OpenConnection()
+            client.openConnection()
             val stm = client.currentConnection.createStatement()
             stm.execute("CREATE TABLE \"car\" (\"id\" BIGINT NOT NULL DEFAULT 0, \"licensePlate\" VARCHAR(50) NOT NULL, PRIMARY KEY (\"id\"));")
             stm.execute("CREATE TABLE \"fuelCard\" (\"id\" BIGINT NOT NULL DEFAULT 0, \"brand\" VARCHAR(50) NOT NULL, \"number\" VARCHAR(50) NOT NULL, PRIMARY KEY (\"id\"));")
@@ -14,7 +14,7 @@ class DbFiller(private val client: Client) {
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
         } finally {
-            client.CloseConnection()
+            client.closeConnection()
         }
     }
 
@@ -22,7 +22,7 @@ class DbFiller(private val client: Client) {
 
 
         try {
-            client.OpenConnection()
+            client.openConnection()
             val stm = client.currentConnection.createStatement()
             stm.execute("DROP TABLE \"car\"")
             stm.execute("DROP TABLE \"fuelCard\"")
@@ -30,7 +30,7 @@ class DbFiller(private val client: Client) {
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
         } finally {
-            client.CloseConnection()
+            client.closeConnection()
         }
     }
 
@@ -41,7 +41,7 @@ class DbFiller(private val client: Client) {
         val baseQueryCarFuel = "INSERT INTO fuelCard (id, brand, number) VALUES (?, ?, ?)"
         var count = 1
         try {
-            client.OpenConnection()
+            client.openConnection()
 
             carsData.getAll().forEach {
                 var stm = client.currentConnection.prepareStatement(baseQueryCar)
@@ -74,7 +74,7 @@ class DbFiller(private val client: Client) {
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
         } finally {
-            client.CloseConnection()
+            client.closeConnection()
         }
     }
 }

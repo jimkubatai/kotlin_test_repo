@@ -5,17 +5,12 @@ import java.lang.Exception
 fun main() {
 
     try {
-
-
         val totalCars = CarsData()
         val totalCards = FuelCardsData()
 
         val dbClient = Client("lesson5.s3db")
 
-        val dbFiller = DbFiller(dbClient)
-
-        dbFiller.createModelTables()
-        dbFiller.fillTables(totalCars, totalCards)
+        val dbFiller = DbFiller(dbClient).apply {createModelTables(); fillTables()}
 
         val dbHandler = DbHandler(dbClient)
 

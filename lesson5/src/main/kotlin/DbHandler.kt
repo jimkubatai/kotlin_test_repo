@@ -9,7 +9,7 @@ class DbHandler(private val client: Client) {
     fun getCarById(carId: Int): Car {
 
         var result: Car? = null
-        client.OpenConnection()
+        client.openConnection()
 
         val stm = client.currentConnection.prepareStatement("SELECT * FROM car WHERE id = ?")
         stm.setInt(1, carId)
@@ -30,7 +30,7 @@ class DbHandler(private val client: Client) {
         } catch (ex: Exception) {
             throw SqlReadDataException(ex)
         } finally {
-            reader.close(); stm.close(); client.CloseConnection()
+            reader.close(); stm.close(); client.closeConnection()
         }
 
         if (result == null) throw SqlNoDataException()
@@ -41,7 +41,7 @@ class DbHandler(private val client: Client) {
     fun getFuelCardById(cardId: Int): FuelCard {
 
         var result: FuelCard? = null
-        client.OpenConnection()
+        client.openConnection()
 
         val stm = client.currentConnection.prepareStatement("SELECT * FROM fuelCard WHERE Id = ?")
         stm.setInt(1, cardId)
@@ -62,7 +62,7 @@ class DbHandler(private val client: Client) {
         } catch (ex: Exception) {
             throw SqlReadDataException(ex)
         } finally {
-            reader.close(); stm.close(); client.CloseConnection()
+            reader.close(); stm.close(); client.closeConnection()
         }
 
         if (result == null) throw SqlNoDataException()
@@ -73,7 +73,7 @@ class DbHandler(private val client: Client) {
     fun getFuelCardNumberByCarId(carId: Int): Car {
 
         val result: Car?
-        client.OpenConnection()
+        client.openConnection()
 
         val stm = client.currentConnection.prepareStatement(
             "SELECT * FROM car c " +
@@ -104,7 +104,7 @@ class DbHandler(private val client: Client) {
         } catch (ex: Exception) {
             throw SqlReadDataException(ex)
         } finally {
-            reader.close(); stm.close(); client.CloseConnection()
+            reader.close(); stm.close(); client.closeConnection()
         }
 
         if (result == null) throw SqlNoDataException()
@@ -114,7 +114,7 @@ class DbHandler(private val client: Client) {
 
     fun getFuelCardsByBrand(brandName: String): Collection<FuelCard> {
 
-        client.OpenConnection()
+        client.openConnection()
 
         val stm = client.currentConnection.prepareStatement("SELECT * FROM fuelCard WHERE brand = ? ORDER BY id DESC")
 
@@ -139,7 +139,7 @@ class DbHandler(private val client: Client) {
         } catch (ex: Exception) {
             throw SqlReadDataException(ex)
         } finally {
-            reader.close(); stm.close(); client.CloseConnection()
+            reader.close(); stm.close(); client.closeConnection()
         }
 
         return fuelCards
@@ -149,7 +149,7 @@ class DbHandler(private val client: Client) {
 
         val result: Car?
 
-        client.OpenConnection()
+        client.openConnection()
         val stm = client.currentConnection.prepareStatement(
             "SELECT c.* FROM fuelCard fc " +
                     "LEFT JOIN carFuelCard cfc ON fc.number = cfc.fuelCardNumber " +
@@ -180,7 +180,7 @@ class DbHandler(private val client: Client) {
         } catch (ex: Exception) {
             throw SqlReadDataException(ex)
         } finally {
-            reader.close(); stm.close(); client.CloseConnection()
+            reader.close(); stm.close(); client.closeConnection()
         }
 
         return result
