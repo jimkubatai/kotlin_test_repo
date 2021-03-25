@@ -1,5 +1,5 @@
-import Model.CarsData
-import Model.FuelCardsData
+import model.CarsData
+import model.FuelCardsData
 import java.lang.Exception
 
 fun main() {
@@ -9,7 +9,6 @@ fun main() {
 
         val totalCars = CarsData()
         val totalCards = FuelCardsData()
-       // val service = Service(totalCards, totalCars)
 
         val dbClient = Client("lesson5.s3db")
 

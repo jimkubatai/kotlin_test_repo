@@ -1,6 +1,4 @@
-package Model
-
-import java.sql.Connection
+package model
 
 class FuelCardsData {
 
@@ -22,13 +20,5 @@ class FuelCardsData {
     )
 
     fun getAll(): List<FuelCard> = this.cards
-
-    fun getCardsByCar(car: Car): List<FuelCard> = cards.filter { car.fuelCardNumbers.contains(it.number) }
-
-
-    fun getCardByCar(car: Car): FuelCard = cards.first { car.fuelCardNumbers.contains(it.number) }
-
-
-    fun getCardByCarOrNull(car: Car): FuelCard? = cards.firstOrNull { car.fuelCardNumbers.contains(it.number) }
 
 }

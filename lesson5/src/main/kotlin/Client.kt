@@ -5,11 +5,11 @@ class Client(private val fileName: String, private val user: String = "", privat
 
     lateinit var currentConnection: Connection
 
-    fun OpenConnection() {
+    fun openConnection() {
         currentConnection = DriverManager.getConnection("jdbc:sqlite:$fileName", user, password)
     }
 
-    fun CloseConnection() {
+    fun closeConnection() {
         currentConnection.close()
     }
 

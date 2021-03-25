@@ -1,4 +1,4 @@
-package Model
+package model
 
 class CarsData {
     private val cars: List<Car> = listOf(
@@ -15,7 +15,4 @@ class CarsData {
     )
 
     fun getAll(): List<Car> = this.cars
-
-    fun getCarsByFuelCardNumber(fuelCard: FuelCard): List<Car> = cars.filter { it.fuelCardNumbers.contains(fuelCard.number) }
-
 }

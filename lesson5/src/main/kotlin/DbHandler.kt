@@ -1,5 +1,5 @@
-import Model.Car
-import Model.FuelCard
+import model.Car
+import model.FuelCard
 import java.sql.ResultSet
 import kotlin.Exception
 
@@ -11,12 +11,10 @@ class DbHandler(private val client: Client) {
         var result: Car? = null
         client.OpenConnection()
 
-        val stm = client.currentConnection.prepareStatement("SELECT * FROM Car WHERE Id = ?")
+        val stm = client.currentConnection.prepareStatement("SELECT * FROM car WHERE id = ?")
         stm.setInt(1, carId)
 
-        val reader: ResultSet
-
-        try {
+        val reader: ResultSet = try {
             reader = stm.executeQuery()
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
@@ -25,8 +23,8 @@ class DbHandler(private val client: Client) {
 
         try {
             while (reader.next()) {
-                val id = reader.getInt("Id")
-                val licensePlate = reader.getString("LicensePlate")
+                val id = reader.getInt("id")
+                val licensePlate = reader.getString("licensePlate")
                 result = Car(id, licensePlate, listOf())
             }
         } catch (ex: Exception) {
@@ -45,12 +43,10 @@ class DbHandler(private val client: Client) {
         var result: FuelCard? = null
         client.OpenConnection()
 
-        val stm = client.currentConnection.prepareStatement("SELECT * FROM FuelCard WHERE Id = ?")
+        val stm = client.currentConnection.prepareStatement("SELECT * FROM fuelCard WHERE Id = ?")
         stm.setInt(1, cardId)
 
-        val reader: ResultSet
-
-        try {
+        val reader: ResultSet = try {
             reader = stm.executeQuery()
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
@@ -58,9 +54,9 @@ class DbHandler(private val client: Client) {
 
         try {
             while (reader.next()) {
-                val id = reader.getInt("Id")
-                val brand = reader.getString("Brand")
-                val number = reader.getString("Number")
+                val id = reader.getInt("id")
+                val brand = reader.getString("brand")
+                val number = reader.getString("number")
                 result = FuelCard(id, brand, number)
             }
         } catch (ex: Exception) {
@@ -80,9 +76,9 @@ class DbHandler(private val client: Client) {
         client.OpenConnection()
 
         val stm = client.currentConnection.prepareStatement(
-            "SELECT * FROM Car c " +
-                    "LEFT JOIN CarFuelCard cfc ON cfc.Car = c.Id " +
-                    "WHERE c.Id = ?"
+            "SELECT * FROM car c " +
+                    "LEFT JOIN carFuelCard cfc ON cfc.car = c.id " +
+                    "WHERE c.id = ?"
         )
         stm.setInt(1, carId)
 
@@ -99,9 +95,9 @@ class DbHandler(private val client: Client) {
         var licensePlate = ""
         try {
             while (reader.next()) {
-                id = reader.getInt("Id")
-                licensePlate = reader.getString("LicensePlate")
-                fuelCards.add(reader.getString("FuelCardNumber"))
+                id = reader.getInt("id")
+                licensePlate = reader.getString("licensePlate")
+                fuelCards.add(reader.getString("fuelCardNumber"))
             }
 
             result = Car(id, licensePlate, fuelCards)
@@ -120,7 +116,7 @@ class DbHandler(private val client: Client) {
 
         client.OpenConnection()
 
-        val stm = client.currentConnection.prepareStatement("SELECT * FROM FuelCard WHERE Brand = ? ORDER BY Id DESC")
+        val stm = client.currentConnection.prepareStatement("SELECT * FROM fuelCard WHERE brand = ? ORDER BY id DESC")
 
         stm.setString(1, brandName)
 
@@ -135,9 +131,9 @@ class DbHandler(private val client: Client) {
 
         try {
             while (reader.next()) {
-                val id = reader.getInt("Id")
-                val brand = reader.getString("Brand")
-                val number = reader.getString("Number")
+                val id = reader.getInt("id")
+                val brand = reader.getString("brand")
+                val number = reader.getString("number")
                 fuelCards.add(FuelCard(id, brand, number))
             }
         } catch (ex: Exception) {
@@ -155,11 +151,11 @@ class DbHandler(private val client: Client) {
 
         client.OpenConnection()
         val stm = client.currentConnection.prepareStatement(
-            "SELECT c.* FROM FuelCard fc " +
-                    "LEFT JOIN CarFuelCard cfc ON fc.Number = cfc.FuelCardNumber " +
-                    "LEFT JOIN Car c ON c.Id = cfc.Car " +
-                    "WHERE fc.Id = ? " +
-                    "GROUP BY c.Id"
+            "SELECT c.* FROM fuelCard fc " +
+                    "LEFT JOIN carFuelCard cfc ON fc.number = cfc.fuelCardNumber " +
+                    "LEFT JOIN car c ON c.id = cfc.car " +
+                    "WHERE fc.id = ? " +
+                    "GROUP BY c.id"
         )
         stm.setInt(1, fuelCardId)
 
@@ -176,8 +172,8 @@ class DbHandler(private val client: Client) {
 
         try {
             while (reader.next()) {
-                id = reader.getInt("Id")
-                licensePlate = reader.getString("LicensePlate")
+                id = reader.getInt("id")
+                licensePlate = reader.getString("licensePlate")
             }
 
             result = Car(id, licensePlate, fuelCards)

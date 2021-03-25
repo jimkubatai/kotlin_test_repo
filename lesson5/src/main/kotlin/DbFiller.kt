@@ -1,5 +1,5 @@
-import Model.CarsData
-import Model.FuelCardsData
+import model.CarsData
+import model.FuelCardsData
 import java.lang.Exception
 
 class DbFiller(private val client: Client) {
@@ -8,9 +8,9 @@ class DbFiller(private val client: Client) {
         try {
             client.OpenConnection()
             val stm = client.currentConnection.createStatement()
-            stm.execute("CREATE TABLE \"Car\" (\"Id\" BIGINT NOT NULL DEFAULT 0, \"LicensePlate\" VARCHAR(50) NOT NULL, PRIMARY KEY (\"Id\"));")
-            stm.execute("CREATE TABLE \"FuelCard\" (\"Id\" BIGINT NOT NULL DEFAULT 0, \"Brand\" VARCHAR(50) NOT NULL, \"Number\" VARCHAR(50) NOT NULL, PRIMARY KEY (\"Id\"));")
-            stm.execute("CREATE TABLE \"CarFuelCard\" (\"Id\" BIGINT NOT NULL DEFAULT 0, \"Car\" BIGINT NOT NULL, \"FuelCardNumber\" VARCHAR(50) NOT NULL, PRIMARY KEY (\"Id\"));")
+            stm.execute("CREATE TABLE \"car\" (\"id\" BIGINT NOT NULL DEFAULT 0, \"licensePlate\" VARCHAR(50) NOT NULL, PRIMARY KEY (\"id\"));")
+            stm.execute("CREATE TABLE \"fuelCard\" (\"id\" BIGINT NOT NULL DEFAULT 0, \"brand\" VARCHAR(50) NOT NULL, \"number\" VARCHAR(50) NOT NULL, PRIMARY KEY (\"id\"));")
+            stm.execute("CREATE TABLE \"carFuelCard\" (\"id\" BIGINT NOT NULL DEFAULT 0, \"car\" BIGINT NOT NULL, \"fuelCardNumber\" VARCHAR(50) NOT NULL, PRIMARY KEY (\"id\"));")
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
         } finally {
@@ -24,9 +24,9 @@ class DbFiller(private val client: Client) {
         try {
             client.OpenConnection()
             val stm = client.currentConnection.createStatement()
-            stm.execute("DROP TABLE \"Car\"")
-            stm.execute("DROP TABLE \"FuelCard\"")
-            stm.execute("DROP TABLE \"CarFuelCard\"")
+            stm.execute("DROP TABLE \"car\"")
+            stm.execute("DROP TABLE \"fuelCard\"")
+            stm.execute("DROP TABLE \"carFuelCard\"")
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
         } finally {
@@ -36,16 +36,17 @@ class DbFiller(private val client: Client) {
 
     fun fillTables(carsData: CarsData, fuelCardsData: FuelCardsData) {
 
-        val baseQueryCar = "INSERT INTO Car (Id, LicensePlate) VALUES (?, ?)"
-        val baseQueryCarFuelCard = "INSERT INTO CarFuelCard (Id, Car, FuelCardNumber) VALUES (?, ?, ?)"
-        val baseQueryCarFuel = "INSERT INTO FuelCard (Id, Brand, Number) VALUES (?, ?, ?)"
+        val baseQueryCar = "INSERT INTO car (id, licensePlate) VALUES (?, ?)"
+        val baseQueryCarFuelCard = "INSERT INTO carFuelCard (id, car, fuelCardNumber) VALUES (?, ?, ?)"
+        val baseQueryCarFuel = "INSERT INTO fuelCard (id, brand, number) VALUES (?, ?, ?)"
         var count = 1
         try {
             client.OpenConnection()
-            for (car in carsData.getAll()) {
+
+            carsData.getAll().forEach {
                 var stm = client.currentConnection.prepareStatement(baseQueryCar)
-                stm.setInt(1, car.id)
-                stm.setString(2, car.licensePlate)
+                stm.setInt(1, it.id)
+                stm.setString(2, it.licensePlate)
                 stm.execute()
                 stm.close()
 
@@ -57,15 +58,15 @@ class DbFiller(private val client: Client) {
                     stm.execute()
                     stm.close()
 
-                   count = count.inc()
+                    count = count.inc()
                 }
             }
 
-            for (fuelCard in fuelCardsData.getAll()) {
+            fuelCardsData.getAll().forEach {
                 val stm = client.currentConnection.prepareStatement(baseQueryCarFuel)
-                stm.setInt(1, fuelCard.id)
-                stm.setString(2, fuelCard.brand)
-                stm.setString(3, fuelCard.number)
+                stm.setInt(1, it.id)
+                stm.setString(2, it.brand)
+                stm.setString(3, it.number)
                 stm.execute()
                 stm.close()
             }
