@@ -25,5 +25,19 @@ internal class ServiceTest {
 
     @Test
     fun getCarLicensePlate() {
+        val totalCars = CarsData()
+        val totalCards = FuelCardsData()
+        val service = Service(totalCards, totalCars)
+
+        repeat(14) {
+            if(totalCars.getCarsById(it).any())
+            {
+                assert(service.getCarLicensePlate(it) == CarsData().getAll()[it].licensePlate)
+            }
+            else
+            {
+                assertThrows<NotFoundException> { service.getCarLicensePlate(it) }
+            }
+        }
     }
 }
