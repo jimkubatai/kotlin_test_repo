@@ -1,3 +1,3 @@
 package model
 
-class FuelCard(val id: Int, val brand: String, val number: String)
+data class FuelCard(val id: Int, val brand: String, val number: String)
