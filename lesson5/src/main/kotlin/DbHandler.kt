@@ -14,7 +14,7 @@ class DbHandler(private val client: Client) {
         val stm = client.currentConnection.prepareStatement("SELECT * FROM car WHERE id = ?")
         stm.setInt(1, carId)
 
-        val reader: ResultSet = try {
+        val reader = try {
             stm.executeQuery()
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
@@ -46,7 +46,7 @@ class DbHandler(private val client: Client) {
         val stm = client.currentConnection.prepareStatement("SELECT * FROM fuelCard WHERE Id = ?")
         stm.setInt(1, cardId)
 
-        val reader: ResultSet = try {
+        val reader = try {
             stm.executeQuery()
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
@@ -159,9 +159,8 @@ class DbHandler(private val client: Client) {
         )
         stm.setInt(1, fuelCardId)
 
-        val reader: ResultSet
-        try {
-            reader = stm.executeQuery()
+        val reader = try {
+             stm.executeQuery()
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
         }
