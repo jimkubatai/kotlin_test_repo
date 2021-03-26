@@ -1,7 +1,6 @@
 package model
 
 class FuelCardsData {
-
     private val cards: List<FuelCard> = listOf(
         FuelCard(101, "Лукойл", "Х000001"),
         FuelCard(102, "Газпром", "W100001"),
@@ -20,5 +19,4 @@ class FuelCardsData {
     )
 
     fun getAll(): List<FuelCard> = this.cards
-
 }
