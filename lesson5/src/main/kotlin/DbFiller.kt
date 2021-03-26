@@ -50,10 +50,10 @@ class DbFiller(private val client: Client) {
                 stm.execute()
                 stm.close()
 
-                for (number in car.fuelCardNumbers) {
+                it.fuelCardNumbers.forEach { number ->
                     stm = client.currentConnection.prepareStatement(baseQueryCarFuelCard)
                     stm.setInt(1, count)
-                    stm.setInt(2, car.id)
+                    stm.setInt(2, it.id)
                     stm.setString(3, number)
                     stm.execute()
                     stm.close()

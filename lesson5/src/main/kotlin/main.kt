@@ -10,7 +10,7 @@ fun main() {
 
         val dbClient = Client("lesson5.s3db")
 
-        val dbFiller = DbFiller(dbClient).apply {createModelTables(); fillTables()}
+        val dbFiller = DbFiller(dbClient).apply { createModelTables(); fillTables(totalCars, totalCards)}
 
         val dbHandler = DbHandler(dbClient)
 

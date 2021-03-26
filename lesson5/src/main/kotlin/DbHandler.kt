@@ -15,7 +15,7 @@ class DbHandler(private val client: Client) {
         stm.setInt(1, carId)
 
         val reader: ResultSet = try {
-            reader = stm.executeQuery()
+            stm.executeQuery()
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
         }
@@ -47,7 +47,7 @@ class DbHandler(private val client: Client) {
         stm.setInt(1, cardId)
 
         val reader: ResultSet = try {
-            reader = stm.executeQuery()
+            stm.executeQuery()
         } catch (ex: Exception) {
             throw SqlExecuteException(ex)
         }
