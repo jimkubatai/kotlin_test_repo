@@ -1,4 +1,7 @@
+import io.mockk.confirmVerified
+import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -22,13 +25,6 @@ internal class ServiceTest {
                 assertThrows<NotFoundException> { service.isCarExist(it) }
             }
         }
-    }
-
-    @Test
-    fun isCarExist2() {
-         val car = mockk<Car>()
-
-
     }
 
     @Test

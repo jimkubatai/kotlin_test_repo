@@ -1,4 +1,3 @@
-import io.mockk.mockkStatic
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
