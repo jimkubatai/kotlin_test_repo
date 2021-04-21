@@ -2,7 +2,7 @@ package lesson9.lesson9
 
 class FuelCardsData {
 
-    private val cards: List<FuelCard> = listOf(FuelCard(101, "Лукойл", "Х000001"),
+    private val cards: MutableList<FuelCard> = mutableListOf(FuelCard(101, "Лукойл", "Х000001"),
         FuelCard(102, "Газпром", "W100001"),
         FuelCard(103, "Лукойл", "Х000002"),
         FuelCard(103, "Лукойл", "Х000003"),
@@ -30,5 +30,33 @@ class FuelCardsData {
         return filterdCars.first()
     }
 
+    fun addCard(card: FuelCard) : Int {
+        val newId = cards.maxOf { it.id } + 1
+        val newCard = FuelCard(newId, card.brand, card.number)
 
+        cards.add(newCard)
+
+        return newId
+    }
+
+    fun removeCard(cardId: Int) : Int {
+        val filteredCars : List<FuelCard> = cards.filter { it.id == cardId }
+
+        if(filteredCars.isNotEmpty()) {
+            cards.remove(filteredCars.first())
+        }
+
+        return cardId
+    }
+
+    fun updateCard(card: FuelCard) : Int {
+        val filteredCars : List<FuelCard> = cards.filter { it.id == card.id }
+
+        if(filteredCars.isNotEmpty()) {
+            cards.remove(filteredCars.first())
+            cards.add(card)
+        }
+
+        return card.id
+    }
 }

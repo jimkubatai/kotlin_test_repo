@@ -4,23 +4,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.data.crossstore.ChangeSetPersister
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.lang.RuntimeException
+import javax.servlet.http.HttpServletResponse
 
 @SpringBootApplication
 class Lesson9Application
 	fun main(args: Array<String>) {
 		runApplication<Lesson9Application>(*args)
-	}
-
-	@RestController
-	@RequestMapping("/cars")
-	class CarResource(var carsData: CarsData = CarsData()) {
-		@GetMapping("/all")
-		fun index(): List<Car> = carsData.getAll()
-
-		@GetMapping("/{id}")
-		fun getById(@PathVariable id: Int): Car? = carsData.getCarById(id) ?: throw ResourceNotFoundException()
 	}
 
 	@RestController
@@ -30,11 +22,29 @@ class Lesson9Application
 		fun getAll(): List<FuelCard> = cardsData.getAll()
 
 		@GetMapping("/{id}")
-		fun getById(@PathVariable id: Int): FuelCard? = cardsData.getCardById(id) ?: throw ResourceNotFoundException()
-	}
+		fun getById(@PathVariable id: Int): ResponseEntity<FuelCard> {
+			val card = cardsData.getCardById(id) ?: return ResponseEntity.notFound().build()
+			return ResponseEntity.ok(card)
+		}
 
-	@ResponseStatus(value = HttpStatus.NOT_FOUND, reason="Запись не найдена")
-	class ResourceNotFoundException : Exception()
+		@PostMapping("/{brand}/{number}")
+		fun addNew(@PathVariable brand: String, @PathVariable number: String): ResponseEntity<Int> {
+			val card = FuelCard(0, brand, number)
+			return ResponseEntity.ok(cardsData.addCard(card))
+		}
+
+		@PostMapping("/{brand}/{number}")
+		fun update(@PathVariable brand: String, @PathVariable number: String): ResponseEntity<Int> {
+			val card = FuelCard(0, brand, number)
+			return ResponseEntity.ok(cardsData.updateCard(card))
+		}
+
+		@DeleteMapping("/{id}")
+		fun update(@PathVariable id: Int): ResponseEntity<Int> {
+			return ResponseEntity.ok(cardsData.removeCard(id))
+		}
+
+	}
 
 
 
