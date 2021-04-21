@@ -35,11 +35,9 @@ suspend fun main() {
 
     val job4 = GlobalScope.launch {
         while (this.isActive) {
-            for(card in totalCards) {
-                delay(1500L)
-                val card = channel.receive()
-                println("Received card $card")
-            }
+            delay(1500L)
+            val card = channel.receive()
+            println("Received card $card")
         }
     }
 
@@ -47,6 +45,5 @@ suspend fun main() {
     println("Time off")
     job3.cancel()
     job4.cancel()
-
     println("Exit")
 }
